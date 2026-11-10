@@ -13,24 +13,40 @@ repositório sem nenhuma configuração extra.
 ## Estrutura
 
 Cada aula mora numa pasta com nome descritivo (o que ela implementa, não o
-número da aula):
+número da aula). A ordem abaixo é a da página inicial: da aula **mais simples
+para a mais complexa**.
 
 ```
 index.html                      página inicial (catálogo de aulas)
 shared/player/                   motor da apresentação, usado por todas as aulas
-logica-e-funcoes-typescript/      TypeScript puro (sem React Native), lógica básica e funções
+manipulando-dom/                  1. DOM, parte 1: contador de cliques (iniciantes)
   aula/
     index.html                   apresentação interativa
     aulas/*.js                    conteúdo da aula (etapas, slides, desafios)
-javascript-dom-placar/            JavaScript puro, 13 exercícios até um placar de futebol (iniciantes, sem CSS)
+manipulando-dom-lista/            2. DOM, parte 2: lista de compras, createElement e remover
   aula/...                        idem
-manipulando-dom/                  DOM, parte 1: contador de cliques (iniciantes)
+logica-e-funcoes-typescript/      3. TypeScript puro (sem React Native), lógica básica e funções
   aula/...                        idem
-manipulando-dom-lista/            DOM, parte 2: lista de compras, createElement e remover
+javascript-dom-placar/            4. JavaScript puro, 13 exercícios até um placar de futebol (sem CSS)
   aula/...                        idem
-typescript-dom/                   TypeScript + DOM, aula 1 de 3: tipos e a lista "Minhas tecnologias"
+typescript-dom/                   5. TypeScript + DOM, aula 1 de 3: tipos e a lista "Minhas tecnologias"
+  aula/...                        idem
+eventos-e-codigo-limpo/           6. aula 2 de 3: eventos (contador, nome, IMC, delegação) e código limpo
+  aula/...                        idem
+build-deploy-readme-ia/           7. aula 3 de 3: .gitignore, build, GitHub Pages, README e IA com testes
   aula/...                        idem
 ```
+
+## Como cada aula deve ser
+
+- **Um assunto por aula.** O título e o campo `conceito` do card dizem qual é;
+  tudo o que a aula mostra serve a esse assunto.
+- **Começa devagar.** Antes de qualquer código, os primeiros slides explicam o
+  que é cada coisa que vai aparecer, em linguagem simples, um conceito por vez.
+- **Exemplos simples de implementação.** Cada conceito novo vem com um
+  exemplo pequeno que funciona sozinho, antes de qualquer exemplo composto.
+- **Complexidade crescente dentro da aula**, e entre aulas: uma aula só usa o
+  que as anteriores da lista já ensinaram.
 
 As aulas de React Native ficam no repositório de Mobile (`Aulas/Mobile/mobile`),
 não aqui.

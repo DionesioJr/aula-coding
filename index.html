@@ -247,7 +247,7 @@
 <header>
   <div class="eyebrow">Lógica de programação · direto no navegador</div>
   <h1>Aulas de Coding</h1>
-  <p>Cada aula mostra o código sendo construído do zero, passo a passo. Escolha uma aula abaixo e siga no seu ritmo, use as setas do teclado para avançar.</p>
+  <p>Cada aula mostra o código sendo construído do zero, passo a passo. As aulas estão em ordem, da mais simples para a mais complexa: comece pela primeira e siga no seu ritmo, usando as setas do teclado para avançar.</p>
 </header>
 
 <main>
@@ -275,23 +275,11 @@
 
 <script>
   // Para adicionar uma aula nova: crie a pasta com um nome descritivo
-  // (ver README) e acrescente um item aqui. A ordem da lista é a ordem
-  // exibida na página.
+  // (ver README) e acrescente um item aqui. A lista segue a ordem de
+  // complexidade, da mais simples (primeira) para a mais complexa (última):
+  // encaixe a aula nova no ponto certo, não só no fim. O número da aula
+  // exibido na página é a posição nesta lista.
   const AULAS = [
-    {
-      titulo: 'Lógica e funções em TypeScript',
-      subtitulo: 'TypeScript puro · sem React Native',
-      conceito: 'funções tipadas',
-      resumo: 'Oito atividades de lógica básica, cada uma virando uma função: par/ímpar, maior de dois e de três, fatorial, primo, nota, inverter texto e contar vogais.',
-      href: 'logica-e-funcoes-typescript/aula/index.html',
-    },
-    {
-      titulo: 'JavaScript e DOM: do zero ao placar',
-      subtitulo: 'Coding · HTML e JavaScript puros · para iniciantes',
-      conceito: 'addEventListener',
-      resumo: 'Treze exercícios curtos, sem CSS: variáveis, tipos, funções e if, depois o DOM, setInterval e eventos, até montar um placar de futebol com cronômetro.',
-      href: 'javascript-dom-placar/aula/index.html',
-    },
     {
       titulo: 'Manipulando o DOM',
       subtitulo: 'Coding · HTML e JavaScript puros · parte 1',
@@ -307,24 +295,52 @@
       href: 'manipulando-dom-lista/aula/index.html',
     },
     {
+      titulo: 'Lógica e funções em TypeScript',
+      subtitulo: 'TypeScript puro · sem React Native',
+      conceito: 'funções tipadas',
+      resumo: 'Oito atividades de lógica básica, cada uma virando uma função: par/ímpar, maior de dois e de três, fatorial, primo, nota, inverter texto e contar vogais.',
+      href: 'logica-e-funcoes-typescript/aula/index.html',
+    },
+    {
+      titulo: 'JavaScript e DOM: do zero ao placar',
+      subtitulo: 'Coding · HTML e JavaScript puros · para iniciantes',
+      conceito: 'addEventListener',
+      resumo: 'Treze exercícios curtos, sem CSS: variáveis, tipos, funções e if, depois o DOM, setInterval e eventos, até montar um placar de futebol com cronômetro.',
+      href: 'javascript-dom-placar/aula/index.html',
+    },
+    {
       titulo: 'Construindo a página com TypeScript',
       subtitulo: 'Coding · TypeScript + DOM · aula 1 de 3',
       conceito: 'createElement',
       resumo: 'Do primeiro tipo ao laboratório "Minhas tecnologias": funções tipadas, arrays e forEach, e depois criar, inserir e remover elementos da página, aos poucos.',
       href: 'typescript-dom/aula/index.html',
     },
+    {
+      titulo: 'Eventos e código limpo',
+      subtitulo: 'Coding · TypeScript + DOM · aula 2 de 3',
+      conceito: 'delegação',
+      resumo: 'Começa com três telas simples (contador de cliques, nome que aparece ao digitar e calculadora de IMC), segue com formulário, a armadilha do innerHTML += e delegação, e termina na faxina: nomes claros, uma tarefa por função e retorno antecipado.',
+      href: 'eventos-e-codigo-limpo/aula/index.html',
+    },
+    {
+      titulo: 'Do computador para o mundo',
+      subtitulo: 'Coding · Build, deploy, README e IA · aula 3 de 3',
+      conceito: 'build',
+      resumo: 'Preparar e publicar o projeto: package.json, .gitignore, segredos, tsc, GitHub Pages, um README que convence e IA com responsabilidade (revisar, testar, assumir).',
+      href: 'build-deploy-readme-ia/aula/index.html',
+    },
   ];
 
   const grid = document.getElementById('grid');
   const total = AULAS.length;
-  grid.innerHTML = AULAS.slice().reverse().map(function (aula, indice) {
-    const numero = total - indice;
-    const maisRecente = numero === total;
+  grid.innerHTML = AULAS.map(function (aula, indice) {
+    const numero = indice + 1;
+    const primeira = indice === 0;
     return (
-      '<a class="card' + (maisRecente ? ' destaque' : '') + '" href="' + aula.href + '">' +
+      '<a class="card' + (primeira ? ' destaque' : '') + '" href="' + aula.href + '">' +
         '<div class="card-num">' +
           '<span class="numero">Aula ' + numero + '</span>' +
-          (maisRecente ? '<span class="selo-recente">Mais recente</span>' : '') +
+          (primeira ? '<span class="selo-recente">Comece aqui</span>' : '') +
         '</div>' +
         '<div class="card-body">' +
           '<h2>' + aula.titulo + '</h2>' +
