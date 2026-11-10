@@ -1,0 +1,14 @@
+{
+  "name": "logica-e-funcoes-typescript",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "ts-node src/testes.ts",
+    "check-aula": "node aula/tools/check-sync.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.9.2"
+  },
+  "private": true
+}
