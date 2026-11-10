@@ -1,0 +1,14 @@
+{
+  "name": "minhas-tecnologias",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "limpo": "tsc && node dist/limpo.js",
+    "check-aula": "node aula/tools/check-sync.js"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.2"
+  }
+}
