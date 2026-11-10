@@ -19,21 +19,26 @@ para a mais complexa**.
 ```
 index.html                      página inicial (catálogo de aulas)
 shared/player/                   motor da apresentação, usado por todas as aulas
-manipulando-dom/                  1. DOM, parte 1: contador de cliques (iniciantes)
+javascript-basico/                1. JavaScript básico: console.log, variáveis, tipos, funções e if, no terminal (iniciantes)
   aula/
     index.html                   apresentação interativa
     aulas/*.js                    conteúdo da aula (etapas, slides, desafios)
-manipulando-dom-lista/            2. DOM, parte 2: lista de compras, createElement e remover
+  exemplos/                      um arquivo por exemplo (o código que os alunos digitam)
+manipulando-dom/                  2. DOM, parte 1: contador de cliques (iniciantes)
+  aula/
+    index.html                   apresentação interativa
+    aulas/*.js                    conteúdo da aula (etapas, slides, desafios)
+manipulando-dom-lista/            3. DOM, parte 2: lista de compras, createElement e remover
   aula/...                        idem
-logica-e-funcoes-typescript/      3. TypeScript puro (sem React Native), lógica básica e funções
+logica-e-funcoes-typescript/      4. TypeScript puro (sem React Native), lógica básica e funções
   aula/...                        idem
-javascript-dom-placar/            4. JavaScript puro, 13 exercícios até um placar de futebol (sem CSS)
+javascript-dom-placar/            5. DOM, tempo e eventos até um placar de futebol (sem CSS)
   aula/...                        idem
-typescript-dom/                   5. TypeScript + DOM, aula 1 de 3: tipos e a lista "Minhas tecnologias"
+typescript-dom/                   6. TypeScript + DOM, aula 1 de 3: tipos e a lista "Minhas tecnologias"
   aula/...                        idem
-eventos-e-codigo-limpo/           6. aula 2 de 3: eventos (contador, nome, IMC, delegação) e código limpo
+eventos-e-codigo-limpo/           7. aula 2 de 3: eventos (contador, nome, IMC, delegação) e código limpo
   aula/...                        idem
-build-deploy-readme-ia/           7. aula 3 de 3: .gitignore, build, GitHub Pages, README e IA com testes
+build-deploy-readme-ia/           8. aula 3 de 3: .gitignore, build, GitHub Pages, README e IA com testes
   aula/...                        idem
 ```
 
