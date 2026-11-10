@@ -22,7 +22,13 @@ logica-e-funcoes-typescript/      TypeScript puro (sem React Native), lógica b�
   aula/
     index.html                   apresentação interativa
     aulas/*.js                    conteúdo da aula (etapas, slides, desafios)
-manipulando-dom/                  HTML e JavaScript puros, DOM e eventos
+javascript-dom-placar/            JavaScript puro, 13 exercícios até um placar de futebol (iniciantes, sem CSS)
+  aula/...                        idem
+manipulando-dom/                  DOM, parte 1: contador de cliques (iniciantes)
+  aula/...                        idem
+manipulando-dom-lista/            DOM, parte 2: lista de compras, createElement e remover
+  aula/...                        idem
+typescript-dom/                   TypeScript + DOM, aula 1 de 3: tipos e a lista "Minhas tecnologias"
   aula/...                        idem
 ```
 
