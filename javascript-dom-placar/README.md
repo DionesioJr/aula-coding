@@ -1,24 +1,20 @@
 # JavaScript e DOM: da variável ao placar
 
-Aula da disciplina de Coding para quem está começando: JavaScript puro, sem
-bibliotecas, sem npm e **sem CSS**. O foco é a lógica. A turma sai do zero e
-termina com um placar de futebol funcionando no navegador, em 13 exercícios
-curtos:
+Aula da disciplina de Coding para quem já viu o básico de JavaScript (aula
+[`javascript-basico`](../javascript-basico/)): JavaScript puro, sem
+bibliotecas, sem npm e **sem CSS**. O foco é a lógica. A turma termina com um
+placar de futebol funcionando no navegador, em 6 exercícios curtos:
 
-1. variáveis (`let`/`const`), tipos, operadores, funções e `if`/`else`
-   (exercícios 1 a 7, em [`treino.js`](treino.js));
-2. o DOM: `getElementById` e `textContent` (exercício 8, em
+1. o DOM: `getElementById` e `textContent` (exercício 1, em
    [`index.html`](index.html) + [`app.js`](app.js));
-3. tempo: `setInterval`, um contador que anda sozinho (exercícios 9 a 12);
-4. eventos: `addEventListener`, reagir ao clique (exercício 13, em
+2. tempo: `setInterval`, um contador que anda sozinho (exercícios 2 a 5);
+3. eventos: `addEventListener`, reagir ao clique (exercício 6, em
    [`placar.html`](placar.html) + [`placar.js`](placar.js));
-5. desafio em três níveis: o placar (dois times, corrigir e zerar,
+4. desafio em três níveis: o placar (dois times, corrigir e zerar,
    cronômetro com `clearInterval` e vencedor).
 
 ## Executar
 
-- **`treino.js`**: no terminal, `node treino.js` (ou cole no Console do
-  navegador, F12).
 - **`index.html`** (contador) e **`placar.html`** (placar): abra no navegador
   (dois cliques) e use o Console (F12) para ver erros e `console.log`.
 
