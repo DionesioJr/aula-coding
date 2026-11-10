@@ -1,0 +1,15 @@
+{
+  "name": "minhas-tecnologias",
+  "version": "1.0.0",
+  "description": "Lista das tecnologias que estou aprendendo",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "teste": "tsc && node dist/temperatura.js && node dist/email.js",
+    "check-aula": "node aula/tools/check-sync.js"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.2"
+  }
+}
