@@ -3,8 +3,10 @@
 
    Aula 2 de 3 da série "Minhas tecnologias". Para iniciantes: foco na
    lógica, nenhum CSS, exercícios pequenos em sequência. A progressão:
-   1. eventos (src/eventos.ts + eventos.html): addEventListener, o objeto
-      do evento, formulário, a armadilha do innerHTML += e a delegação;
+   1. eventos (src/eventos.ts + eventos.html): três telas simples primeiro
+      (contador de cliques, nome que aparece em cima, calculadora de IMC),
+      depois o objeto do evento, formulário, a armadilha do innerHTML += e
+      a delegação;
    2. código limpo (src/limpo.ts): nomes que explicam, uma função uma
       tarefa, retorno antecipado, todos os caminhos retornam e números
       mágicos;
@@ -296,7 +298,7 @@ const STEPS = [
   md:
 `Na aula passada nasceu a lista **Minhas tecnologias**. Hoje ela ganha **eventos de verdade** e passa por uma **faxina de código**.
 
-1. **Eventos** (\`eventos.html\` + \`src/eventos.ts\`): como a página reage ao usuário, a armadilha do \`innerHTML +=\` e a delegação;
+1. **Eventos** (\`eventos.html\` + \`src/eventos.ts\`): começa com três telas simples (**contador de cliques**, **nome que aparece em cima** e **calculadora de IMC**) e termina na armadilha do \`innerHTML +=\` e na delegação;
 2. **Código limpo** (\`src/limpo.ts\`): nomes claros, uma função uma tarefa, retorno antecipado, sem números mágicos;
 3. **Laboratório** (\`src/app.ts\`): o código bagunçado da lista vai ficando limpo, **um passo de cada vez**.
 
@@ -352,12 +354,12 @@ Eventos mais usados: \`click\` (clicou), \`input\` (digitou), \`submit\` (enviou
 {
   part:'1 · Eventos', op:'file', target:'eventos.html',
   title:'Criar eventos.html',
-  explain:'Uma página de laboratório, só para experimentar eventos. Começa com <b>um botão</b>.'
+  explain:'Uma página de laboratório, só para experimentar eventos. Começa com <b>um número</b> e <b>um botão</b>.'
 },
 {
   part:'1 · Eventos', op:'code', file:'eventos.html',
-  title:'Um botão',
-  explain:'O <code>&lt;script&gt;</code> aponta para <code>dist/eventos.js</code>, gerado pelo TypeScript a partir de <code>src/eventos.ts</code>.',
+  title:'Um número e um botão',
+  explain:'O <code>&lt;script&gt;</code> aponta para <code>dist/eventos.js</code>, gerado pelo TypeScript a partir de <code>src/eventos.ts</code>. Cada elemento que o código vai usar tem um <code>id</code>.',
   code:
 `<!DOCTYPE html>
 <html lang="pt-BR">
@@ -368,8 +370,9 @@ Eventos mais usados: \`click\` (clicou), \`input\` (digitou), \`submit\` (enviou
 <body>
   <h1>Eventos</h1>
 
-  <h2>1. Clique</h2>
-  <button id="btnTeste">Clique</button>
+  <h2>1. Contador</h2>
+  <p id="numero">0</p>
+  <button id="btnMais">+ 1</button>
 
   <script src="dist/eventos.js"></script>
 </body>
@@ -379,112 +382,345 @@ Eventos mais usados: \`click\` (clicou), \`input\` (digitou), \`submit\` (enviou
 {
   part:'1 · Eventos', op:'file', target:'src/eventos.ts',
   title:'Criar src/eventos.ts',
-  explain:'Aqui moram todos os exemplos de eventos desta parte.'
+  explain:'Aqui moram todos os exemplos de eventos desta parte, do mais simples ao mais completo.'
 },
 {
-  part:'1 · Eventos', op:'challenge', time:'4 min',
-  title:'Exercício 1: ouvir um clique',
+  part:'1 · Eventos', op:'challenge', time:'6 min',
+  title:'Exercício 1: contador de cliques',
   md:
-`Faça o botão **Clique** mostrar \`"clicou"\` no Console a cada clique.
+`Uma tela com um **número** (começa em \`0\`) e um botão **+ 1**. **Cada clique** aumenta o número.
 
-1. selecione o botão (\`HTMLButtonElement\`);
-2. use \`addEventListener("click", ...)\`.
+Pense nas peças:
 
-Clique **três vezes**: quantas vezes o texto aparece?`
+1. uma **variável** \`cliques\` guarda o valor (começa em \`0\`);
+2. o elemento do número e o elemento do botão;
+3. \`addEventListener("click", ...)\` no botão: soma 1 na variável **e** mostra na tela.
+
+> A variável guarda o valor, mas **a tela só muda** quando o código escreve no \`textContent\`. Como \`textContent\` só aceita texto, converta o número com \`String(...)\`.`
 },
 {
   part:'1 · Eventos', op:'code', file:'src/eventos.ts',
-  title:'O primeiro ouvinte',
-  explain:'Três cliques, três <code>clicou</code>. A função guardada roda <b>a cada evento</b>.',
+  title:'O contador',
+  explain:'Clique várias vezes: <b>1, 2, 3...</b> A função guardada roda <b>a cada clique</b>. Sem a linha do <code>textContent</code>, o número subiria "por dentro" e você não veria nada.',
   code:
-`// 1. Clique
-const botaoTeste = document.getElementById("btnTeste") as HTMLButtonElement;
+`// 1. Contador
+let cliques = 0;
+const numero = document.getElementById("numero") as HTMLParagraphElement;
+const botaoMais = document.getElementById("btnMais") as HTMLButtonElement;
 
-botaoTeste.addEventListener("click", () => {
-  console.log("clicou");
+botaoMais.addEventListener("click", () => {
+  cliques = cliques + 1;
+  numero.textContent = String(cliques);
 });
 `
 },
 {
   part:'1 · Eventos', op:'challenge', time:'5 min',
-  title:'Exercício 2: passar a função, não executar',
+  title:'Exercício 2: botão Zerar',
   md:
-`Dá pra dar **nome** à função e passá-la ao \`addEventListener\`.
+`Acrescente um segundo botão, **Zerar**, que volta o contador a \`0\`.
 
-1. Crie \`avisar()\`, que mostra \`"clicou"\`;
-2. troque a função solta por **\`avisar\`**.
+Quatro passos, na mesma ordem do exercício anterior:
 
-Agora a pegadinha. O que muda se você escrever:
+1. o botão no HTML (\`id="btnZerar"\`);
+2. selecionar o botão (\`HTMLButtonElement\`);
+3. ouvir o \`"click"\`;
+4. dentro: \`cliques = 0\` **e** atualizar a tela.
 
-\`\`\`ts
-botaoTeste.addEventListener("click", avisar());
-\`\`\`
-
-(com **parênteses**). Pense: **quando** \`avisar()\` roda?`
+> Se esquecer de atualizar a tela, o número só muda no próximo clique em **+ 1**. Por quê?`
 },
 {
-  part:'1 · Eventos', op:'replace', file:'src/eventos.ts',
-  find:`botaoTeste.addEventListener("click", () => {
-  console.log("clicou");
-});
-`,
-  title:'Passar a função, sem parênteses',
-  explain:'<code>avisar</code> <b>passa a função</b>; <code>avisar()</code> <b>executa na hora</b> e passa o resultado. Com parênteses, o texto apareceria assim que a página carregasse, e o clique não faria nada.',
-  code:
-`function avisar(): void {
-  console.log("clicou");
-}
-
-botaoTeste.addEventListener("click", avisar);
+  part:'1 · Eventos', op:'insert', file:'eventos.html', after:'  <button id="btnMais">+ 1</button>',
+  title:'O botão Zerar no HTML',
+  explain:'Ao lado do <b>+ 1</b>.',
+  code:`  <button id="btnZerar">Zerar</button>
 `
 },
 {
-  part:'1 · Eventos', op:'challenge', time:'7 min',
-  title:'Exercício 3: contador de letras',
+  part:'1 · Eventos', op:'code', file:'src/eventos.ts',
+  title:'Ouvir o Zerar',
+  explain:'Mudar a variável <b>e</b> a tela: são <b>duas</b> ações. A variável é o valor; o <code>textContent</code> é o que se vê.',
+  code:
+`
+const botaoZerar = document.getElementById("btnZerar") as HTMLButtonElement;
+
+botaoZerar.addEventListener("click", () => {
+  cliques = 0;
+  numero.textContent = String(cliques);
+});
+`
+},
+{
+  part:'1 · Eventos', op:'challenge', time:'6 min',
+  title:'Exercício 3: o seu nome aparece em cima',
   md:
-`O evento **\`input\`** acontece a **cada tecla** digitada num campo. A função recebe o **objeto do evento**:
+`Agora um evento diferente: **\`input\`**, que acontece a **cada tecla** digitada num campo.
 
-- \`event\`: chega sozinho para a função;
-- \`event.target\`: **quem disparou** o evento (o campo);
-- \`event.target.value\`: o texto que está no campo.
+Monte uma tela com:
 
-Monte um campo com um contador **"N letras"** que se atualiza a cada tecla.
+- um **título** em cima, que começa com \`"Digite seu nome"\`;
+- um **campo** (\`<input>\`) embaixo.
 
-1. HTML: um \`<input id="caixa">\` e \`<p><span id="letras">0</span> letras</p>\`;
-2. TypeScript: ouça o \`"input"\` e escreva \`value.length\` no \`letras\`.
+Conforme a pessoa digita, o **nome aparece no título**, letra por letra.
 
-> \`event.target\` vem como "elemento qualquer". Diga o tipo com \`as HTMLInputElement\` pra acessar o \`.value\`.`
+> Para ler o que está no campo: \`campo.value\`. Para mostrar no título: \`titulo.textContent = ...\`.`
 },
 {
   part:'1 · Eventos', op:'insert', file:'eventos.html', before:'  <script src="dist/eventos.js"></script>',
-  title:'O campo e o contador no HTML',
-  explain:'O número fica num <code>&lt;span&gt;</code> com <code>id</code>, pra trocar só ele.',
+  title:'O título e o campo no HTML',
+  explain:'O <code>&lt;h3&gt;</code> fica <b>em cima</b> do campo, como pedido. O <code>placeholder</code> é o texto cinza de ajuda dentro do campo.',
   code:
-`  <h2>2. Contador de letras</h2>
-  <input id="caixa" placeholder="Digite algo">
-  <p><span id="letras">0</span> letras</p>
+`  <h2>2. Seu nome</h2>
+  <h3 id="meuNome">Digite seu nome</h3>
+  <input id="campoNome" placeholder="Seu nome">
 
 `
 },
 {
   part:'1 · Eventos', op:'code', file:'src/eventos.ts',
-  title:'input e event.target',
-  explain:'A cada tecla, o <code>input</code> dispara. <code>alvo.value.length</code> conta as letras. Aqui <code>caixa</code> e <code>event.target</code> são o <b>mesmo</b> elemento; com delegação (exercício 8), eles serão diferentes.',
+  title:'O evento input',
+  explain:'A cada tecla o <code>input</code> dispara e o título copia o que está no campo. Digite devagar e veja o nome aparecer <b>enquanto</b> você escreve.',
   code:
 `
-// 2. Contador de letras
-const caixa = document.getElementById("caixa") as HTMLInputElement;
-const letras = document.getElementById("letras") as HTMLSpanElement;
+// 2. Seu nome
+const meuNome = document.getElementById("meuNome") as HTMLHeadingElement;
+const campoNome = document.getElementById("campoNome") as HTMLInputElement;
 
-caixa.addEventListener("input", (event) => {
-  const alvo = event.target as HTMLInputElement;
-  letras.textContent = String(alvo.value.length);
+campoNome.addEventListener("input", () => {
+  meuNome.textContent = campoNome.value;
 });
 `
 },
 {
+  part:'1 · Eventos', op:'challenge', time:'6 min',
+  title:'Exercício 4: uma saudação (e o campo vazio)',
+  md:
+`Apague tudo o que digitou: o título fica **vazio**. Feio.
+
+Melhore:
+
+1. mostre uma saudação, como \`Olá, Ana!\` (use uma **template string**, com crase, e \`\${ }\` para colocar o nome no meio);
+2. se o campo estiver **vazio**, volte a mostrar \`"Digite seu nome"\`;
+3. tire os **espaços das pontas** com \`trim()\`.
+
+> Duas situações, uma pergunta: **o nome está vazio?** É um \`if\` / \`else\`.`
+},
+{
+  part:'1 · Eventos', op:'replace', file:'src/eventos.ts',
+  find:`  meuNome.textContent = campoNome.value;
+`,
+  title:'if / else dentro do evento',
+  explain:'<code>trim()</code> faz <code>"   "</code> contar como vazio. O <code>if</code> escolhe <b>qual texto</b> mostrar a cada tecla.',
+  code:
+`  const nome = campoNome.value.trim();
+  if (nome === "") {
+    meuNome.textContent = "Digite seu nome";
+  } else {
+    meuNome.textContent = \`Olá, \${nome}!\`;
+  }
+`
+},
+{
+  part:'1 · Eventos', op:'challenge', time:'6 min',
+  title:'Exercício 5: o objeto do evento e as letras',
+  md:
+`Toda função de evento recebe um **objeto do evento**, que chega sozinho:
+
+- **\`event\`**: o objeto;
+- **\`event.target\`**: **quem disparou** o evento (aqui, o campo);
+- **\`event.target.value\`**: o texto que está no campo.
+
+Acrescente, embaixo do campo, um contador **"N letras"**, usando o \`event\` em vez de \`campoNome\`.
+
+1. HTML: \`<p><span id="letras">0</span> letras</p>\`;
+2. receba o \`event\` na função e leia \`event.target\`;
+3. escreva \`value.length\` no \`letras\`.
+
+> \`event.target\` vem como "elemento qualquer". Diga o tipo com \`as HTMLInputElement\` pra acessar o \`.value\`.`
+},
+{
+  part:'1 · Eventos', op:'insert', file:'eventos.html', after:'  <input id="campoNome" placeholder="Seu nome">',
+  title:'O contador de letras no HTML',
+  explain:'O número fica num <code>&lt;span&gt;</code> com <code>id</code>, pra trocar só ele.',
+  code:`  <p><span id="letras">0</span> letras</p>
+`
+},
+{
+  part:'1 · Eventos', op:'insert', file:'src/eventos.ts', after:'const campoNome = document.getElementById("campoNome") as HTMLInputElement;',
+  title:'Selecionar o span das letras',
+  explain:'Mais um elemento com o tipo exato da tag.',
+  code:`const letras = document.getElementById("letras") as HTMLSpanElement;
+`
+},
+{
+  part:'1 · Eventos', op:'replace', file:'src/eventos.ts',
+  find:`campoNome.addEventListener("input", () => {
+`,
+  title:'event e event.target',
+  explain:'A função agora <b>recebe</b> o <code>event</code>. Aqui <code>campoNome</code> e <code>event.target</code> são o <b>mesmo</b> elemento; com delegação (exercício 14) eles serão <b>diferentes</b>.',
+  code:
+`campoNome.addEventListener("input", (event) => {
+  const alvo = event.target as HTMLInputElement;
+  letras.textContent = String(alvo.value.length);
+
+`
+},
+{
   part:'1 · Eventos', op:'challenge', time:'8 min',
-  title:'Exercício 4: formulário e preventDefault',
+  title:'Exercício 6: calculadora de IMC (ler os campos)',
+  md:
+`**IMC** (índice de massa corporal) = **peso ÷ (altura × altura)**. Peso em **kg**, altura em **metros**.
+
+Vamos montar a calculadora **em três exercícios pequenos**. O primeiro: só **ler** os dois campos quando clicar em **Calcular**.
+
+1. HTML: dois \`<input>\` (\`campoPeso\`, \`campoAltura\`), um botão **Calcular** e um parágrafo vazio para o resultado;
+2. no clique, leia os dois valores e mostre no Console.
+
+> **Pegadinha:** \`campo.value\` é **sempre texto**, mesmo num campo de número. Para fazer conta, converta com **\`Number(campo.value)\`**. Teste: \`"70" + 1\` dá \`"701"\`, mas \`Number("70") + 1\` dá \`71\`.`
+},
+{
+  part:'1 · Eventos', op:'insert', file:'eventos.html', before:'  <script src="dist/eventos.js"></script>',
+  title:'Os campos da calculadora',
+  explain:'<code>type="number"</code> só aceita números no campo. <code>step="0.01"</code> deixa digitar a altura com vírgula (1.75).',
+  code:
+`  <h2>3. Calculadora de IMC</h2>
+  <input id="campoPeso" type="number" placeholder="Peso em kg">
+  <input id="campoAltura" type="number" step="0.01" placeholder="Altura em metros">
+  <button id="btnCalcular">Calcular</button>
+  <p id="resultadoImc"></p>
+
+`
+},
+{
+  part:'1 · Eventos', op:'code', file:'src/eventos.ts',
+  title:'Ler e converter com Number',
+  explain:'Digite <b>70</b> e <b>1.75</b> e clique: o Console mostra <code>70 1.75</code>, já como <b>números</b>. Se o campo estiver vazio, <code>Number("")</code> vale <b>0</b>.',
+  code:
+`
+// 3. Calculadora de IMC
+const campoPeso = document.getElementById("campoPeso") as HTMLInputElement;
+const campoAltura = document.getElementById("campoAltura") as HTMLInputElement;
+const botaoCalcular = document.getElementById("btnCalcular") as HTMLButtonElement;
+const resultadoImc = document.getElementById("resultadoImc") as HTMLParagraphElement;
+
+botaoCalcular.addEventListener("click", () => {
+  const peso = Number(campoPeso.value);
+  const altura = Number(campoAltura.value);
+  console.log(peso, altura);
+});
+`
+},
+{
+  part:'1 · Eventos', op:'challenge', time:'6 min',
+  title:'Exercício 7: calcular e mostrar o IMC',
+  md:
+`Troque o \`console.log\` pela **conta** e mostre o resultado no parágrafo.
+
+\`\`\`
+IMC = peso / (altura * altura)
+\`\`\`
+
+Mostre com **uma casa decimal**: \`Seu IMC é 22.9\`. O método \`toFixed(1)\` faz isso.
+
+Teste com **70 kg** e **1.75 m**. Deve dar **22.9**.`
+},
+{
+  part:'1 · Eventos', op:'replace', file:'src/eventos.ts',
+  find:`  console.log(peso, altura);
+`,
+  title:'A conta do IMC',
+  explain:'70 ÷ (1,75 × 1,75) = 70 ÷ 3,0625 = <b>22,857...</b>, que <code>toFixed(1)</code> mostra como <b>22.9</b>.',
+  code:
+`  const imc = peso / (altura * altura);
+  resultadoImc.textContent = \`Seu IMC é \${imc.toFixed(1)}\`;
+`
+},
+{
+  part:'1 · Eventos', op:'challenge', time:'8 min',
+  title:'Exercício 8: classificar o IMC e proteger a conta',
+  md:
+`Duas melhorias:
+
+**1. Classificar.** Crie \`classificarImc(imc)\`, que **devolve** um texto:
+
+- abaixo de **18.5** → \`"abaixo do peso"\`
+- abaixo de **25** → \`"peso normal"\`
+- abaixo de **30** → \`"sobrepeso"\`
+- o resto → \`"obesidade"\`
+
+> Dica: teste do **menor** para o maior. Se a primeira condição falhou, a próxima já sabe que o IMC é pelo menos 18.5.
+
+**2. Proteger.** O que acontece se clicar em **Calcular** com os campos **vazios**? Conserte: se peso **ou** altura for **0 ou menos**, mostre \`"Digite peso e altura maiores que zero"\` e **pare** (\`return\`).`
+},
+{
+  part:'1 · Eventos', op:'insert', file:'src/eventos.ts', before:'botaoCalcular.addEventListener("click", () => {',
+  title:'classificarImc',
+  explain:'Cada <code>if</code> já <b>devolve</b> e sai. O último <code>return</code> cobre "obesidade" sem precisar de condição. (Esse padrão tem nome, e é o assunto da parte de código limpo.)',
+  code:
+`function classificarImc(imc: number): string {
+  if (imc < 18.5) return "abaixo do peso";
+  if (imc < 25) return "peso normal";
+  if (imc < 30) return "sobrepeso";
+  return "obesidade";
+}
+
+`
+},
+{
+  part:'1 · Eventos', op:'replace', file:'src/eventos.ts',
+  find:`  const imc = peso / (altura * altura);
+  resultadoImc.textContent = \`Seu IMC é \${imc.toFixed(1)}\`;
+`,
+  title:'Proteger a conta e mostrar a classificação',
+  explain:'O <code>||</code> quer dizer <b>"ou"</b>. Com campo vazio, <code>Number("")</code> vale 0 e a conta daria <code>Infinity</code>: o <code>if</code> pega antes. O <code>return</code> <b>encerra</b> a função e a conta nem acontece.',
+  code:
+`  if (peso <= 0 || altura <= 0) {
+    resultadoImc.textContent = "Digite peso e altura maiores que zero";
+    return;
+  }
+
+  const imc = peso / (altura * altura);
+  resultadoImc.textContent = \`Seu IMC é \${imc.toFixed(1)} (\${classificarImc(imc)})\`;
+`
+},
+{
+  part:'1 · Eventos', op:'challenge', time:'5 min',
+  title:'Exercício 9: passar a função, não executar',
+  md:
+`Dá pra **dar nome** à função do contador e **passá-la** ao \`addEventListener\`.
+
+1. Crie \`somarUm()\`, com o que o clique faz;
+2. troque a função solta por **\`somarUm\`**.
+
+Agora a pegadinha. O que muda se você escrever:
+
+\`\`\`ts
+botaoMais.addEventListener("click", somarUm());
+\`\`\`
+
+(com **parênteses**). Pense: **quando** \`somarUm()\` roda?`
+},
+{
+  part:'1 · Eventos', op:'replace', file:'src/eventos.ts',
+  find:`botaoMais.addEventListener("click", () => {
+  cliques = cliques + 1;
+  numero.textContent = String(cliques);
+});
+`,
+  title:'Passar a função, sem parênteses',
+  explain:'<code>somarUm</code> <b>passa a função</b>; <code>somarUm()</code> <b>executa na hora</b> e passa o resultado. Com parênteses, o contador subiria assim que a página carregasse, e o clique não faria nada.',
+  code:
+`function somarUm(): void {
+  cliques = cliques + 1;
+  numero.textContent = String(cliques);
+}
+
+botaoMais.addEventListener("click", somarUm);
+`
+},
+{
+  part:'1 · Eventos', op:'challenge', time:'8 min',
+  title:'Exercício 10: formulário e preventDefault',
   md:
 `Num \`<form>\`, apertar **Enter** também envia. Mas o navegador, por padrão, **recarrega a página** ao enviar, e tudo que estava na tela se perde.
 
@@ -504,7 +740,7 @@ Monte uma lista de nomes:
   title:'O formulário no HTML',
   explain:'Um <code>&lt;button&gt;</code> dentro de um <code>&lt;form&gt;</code> já <b>envia</b> o formulário: não precisa de <code>id</code> nem de ouvinte de clique.',
   code:
-`  <h2>3. Formulário</h2>
+`  <h2>4. Formulário</h2>
   <form id="formNome">
     <input id="entradaNome" placeholder="Nome">
     <button>Enviar</button>
@@ -519,7 +755,7 @@ Monte uma lista de nomes:
   explain:'Sem o <code>preventDefault()</code>, a página recarregaria e o nome sumiria. Use <b>textContent</b> (não <code>innerHTML</code>) com o que o usuário digitou.',
   code:
 `
-// 3. Formulário
+// 4. Formulário
 const formNome = document.getElementById("formNome") as HTMLFormElement;
 const entradaNome = document.getElementById("entradaNome") as HTMLInputElement;
 const listaNomes = document.getElementById("listaNomes") as HTMLUListElement;
@@ -552,7 +788,7 @@ Esta ideia é a chave da próxima armadilha.`
 },
 {
   part:'1 · Eventos', op:'challenge', time:'6 min',
-  title:'Exercício 5: faça o botão parar de funcionar',
+  title:'Exercício 11: faça o botão parar de funcionar',
   md:
 `Uma armadilha clássica: **\`innerHTML +=\`**.
 
@@ -574,7 +810,7 @@ Clique **duas vezes** no botão.
   title:'O painel no HTML',
   explain:'O botão está <b>dentro</b> do painel. Isso é o que faz a armadilha funcionar.',
   code:
-`  <h2>4. O botão que para de responder</h2>
+`  <h2>5. O botão que para de responder</h2>
   <div id="painel">
     <button id="btnSalvar">Salvar</button>
   </div>
@@ -587,7 +823,7 @@ Clique **duas vezes** no botão.
   explain:'No 1º clique aparece o <code>Salvo!</code>. No 2º, <b>nada acontece</b>, e <b>nenhum erro</b>: o bug é silencioso.',
   code:
 `
-// 4. O botão que para de responder
+// 5. O botão que para de responder
 const painel = document.getElementById("painel") as HTMLDivElement;
 const botaoSalvar = document.getElementById("btnSalvar") as HTMLButtonElement;
 
@@ -611,7 +847,7 @@ O botão que está na tela agora é **outro**, igual ao antigo, mas sem o \`clic
 },
 {
   part:'1 · Eventos', op:'challenge', time:'4 min',
-  title:'Exercício 6: prove que o botão é outro',
+  title:'Exercício 12: prove que o botão é outro',
   md:
 `Dá pra **provar**. Depois do \`+=\`, compare a variável com o botão que está **de verdade** dentro do painel:
 
@@ -630,7 +866,7 @@ Acrescente essa linha dentro do ouvinte e clique. O que o Console mostra? O que 
 },
 {
   part:'1 · Eventos', op:'challenge', time:'5 min',
-  title:'Exercício 7: acrescentar sem destruir',
+  title:'Exercício 13: acrescentar sem destruir',
   md:
 `Conserte. Para **acrescentar** sem recriar os filhos, crie o elemento e use \`appendChild\`:
 
@@ -677,9 +913,9 @@ Funciona até para itens **criados depois**, porque o ouvinte está no \`ul\`, q
 },
 {
   part:'1 · Eventos', op:'challenge', time:'10 min',
-  title:'Exercício 8: remover com um ouvinte só',
+  title:'Exercício 14: remover com um ouvinte só',
   md:
-`Volte à **lista de nomes** (exercício 4). Cada nome deve ter um botão **remover**, e **um único ouvinte** na lista cuida de todos.
+`Volte à **lista de nomes** (exercício 10). Cada nome deve ter um botão **remover**, e **um único ouvinte** na lista cuida de todos.
 
 Dois passos:
 
@@ -765,7 +1001,7 @@ Os próximos exercícios são **funções pequenas e sem página**: você roda n
 },
 {
   part:'2 · Código limpo', op:'challenge', time:'5 min',
-  title:'Exercício 9: nomes que explicam',
+  title:'Exercício 15: nomes que explicam',
   md:
 `Este código funciona, mas **ninguém entende**:
 
@@ -807,7 +1043,7 @@ console.log(calc(d));
   title:'Depois: o nome já diz tudo',
   explain:'Mesmo comportamento, <b>leitura muito melhor</b>. Sem comentário nenhum, dá pra saber o que o código faz.',
   code:
-`// Exercício 9: nomes que explicam
+`// Exercício 15: nomes que explicam
 let diasDeAtraso = 7;
 let aprovados: string[] = [];
 function calcularMulta(dias: number): number {
@@ -818,7 +1054,7 @@ console.log(calcularMulta(diasDeAtraso)); // 14
 },
 {
   part:'2 · Código limpo', op:'challenge', time:'8 min',
-  title:'Exercício 10: uma função, uma tarefa',
+  title:'Exercício 16: uma função, uma tarefa',
   md:
 `Se, para descrever uma função, você precisa usar **"e"**, ela faz coisas demais.
 
@@ -871,7 +1107,7 @@ function matricular(nomeAluno: string, email: string): void {
   explain:'<code>matricular</code> agora <b>lê como um índice</b>: valida, salva, notifica. Cada função se testa sozinha.',
   code:
 `
-// Exercício 10: uma função, uma tarefa
+// Exercício 16: uma função, uma tarefa
 function validar(nomeAluno: string): boolean {
   return nomeAluno !== "";
 }
@@ -896,7 +1132,7 @@ matricular("Ana", "ana@email.com");
 },
 {
   part:'2 · Código limpo', op:'challenge', time:'8 min',
-  title:'Exercício 11: ifs dentro de ifs',
+  title:'Exercício 17: ifs dentro de ifs',
   md:
 `Quanto custa o frete de **40 kg para SP**? Tente descobrir **lendo**:
 
@@ -941,7 +1177,7 @@ console.log(frete(40, "SP")); // 50
 },
 {
   part:'2 · Código limpo', op:'challenge', time:'6 min',
-  title:'Exercício 12: retorno antecipado',
+  title:'Exercício 18: retorno antecipado',
   md:
 `**Early return** (cláusula de guarda): trate os **casos especiais primeiro** e **saia** com \`return\`. O caminho principal fica **no fim**, sem \`else\`, sem pirâmide.
 
@@ -972,7 +1208,7 @@ Confira que os resultados são **os mesmos**.`
   title:'Cada if guarda a entrada da função',
   explain:'Leia de cima pra baixo: o <b>primeiro</b> <code>return</code> que acontecer encerra a função. O último <code>return</code> garante que <b>todo caminho devolve</b> um <code>number</code>.',
   code:
-`// Exercício 12: retorno antecipado
+`// Exercício 18: retorno antecipado
 function frete(peso: number, uf: string): number {
   if (peso <= 0) return 0;
   if (uf === "MS") return 10;
@@ -983,7 +1219,7 @@ function frete(peso: number, uf: string): number {
 },
 {
   part:'2 · Código limpo', op:'challenge', time:'6 min',
-  title:'Exercício 13: teste de mesa',
+  title:'Exercício 19: teste de mesa',
   md:
 `**Teste de mesa:** siga o código **com o dedo**, linha por linha, e escreva o resultado **antes** de rodar.
 
@@ -1017,7 +1253,7 @@ console.log(frete(-1, "MS")); // 0
 },
 {
   part:'2 · Código limpo', op:'challenge', time:'7 min',
-  title:'Exercício 14: todos os caminhos retornam?',
+  title:'Exercício 20: todos os caminhos retornam?',
   md:
 `Escreva \`nivel(nota)\`, que devolve um \`string\`:
 
@@ -1052,7 +1288,7 @@ function nivel(nota: number): string {
 },
 {
   part:'2 · Código limpo', op:'challenge', time:'6 min',
-  title:'Exercício 15: sem números mágicos',
+  title:'Exercício 21: sem números mágicos',
   md:
 `De onde veio o **7**? E o **5**? E se a escola mudar a nota mínima?
 
@@ -1072,7 +1308,7 @@ const NOTA_MINIMA = 7;
   title:'As constantes das notas',
   explain:'Constantes <b>antes</b> da função que as usa. O nome em maiúsculas avisa: este valor <b>não muda</b>.',
   code:
-`// Exercício 15: sem números mágicos
+`// Exercício 21: sem números mágicos
 const NOTA_MINIMA = 7;
 const NOTA_RECUPERACAO = 5;
 

@@ -1,4 +1,4 @@
-// Exercício 9: nomes que explicam
+// Exercício 15: nomes que explicam
 let diasDeAtraso = 7;
 let aprovados: string[] = [];
 function calcularMulta(dias: number): number {
@@ -6,7 +6,7 @@ function calcularMulta(dias: number): number {
 }
 console.log(calcularMulta(diasDeAtraso)); // 14
 
-// Exercício 10: uma função, uma tarefa
+// Exercício 16: uma função, uma tarefa
 function validar(nomeAluno: string): boolean {
   return nomeAluno !== "";
 }
@@ -28,7 +28,7 @@ function matricular(nomeAluno: string, email: string): void {
 
 matricular("Ana", "ana@email.com");
 
-// Exercício 12: retorno antecipado
+// Exercício 18: retorno antecipado
 function frete(peso: number, uf: string): number {
   if (peso <= 0) return 0;
   if (uf === "MS") return 10;
@@ -43,7 +43,7 @@ console.log(frete(10, "SP")); // 25
 console.log(frete(30, "SP")); // 25
 console.log(frete(-1, "MS")); // 0
 
-// Exercício 15: sem números mágicos
+// Exercício 21: sem números mágicos
 const NOTA_MINIMA = 7;
 const NOTA_RECUPERACAO = 5;
 

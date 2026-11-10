@@ -1,22 +1,65 @@
-// 1. Clique
-const botaoTeste = document.getElementById("btnTeste") as HTMLButtonElement;
+// 1. Contador
+let cliques = 0;
+const numero = document.getElementById("numero") as HTMLParagraphElement;
+const botaoMais = document.getElementById("btnMais") as HTMLButtonElement;
 
-function avisar(): void {
-  console.log("clicou");
+function somarUm(): void {
+  cliques = cliques + 1;
+  numero.textContent = String(cliques);
 }
 
-botaoTeste.addEventListener("click", avisar);
+botaoMais.addEventListener("click", somarUm);
 
-// 2. Contador de letras
-const caixa = document.getElementById("caixa") as HTMLInputElement;
-const letras = document.getElementById("letras") as HTMLSpanElement;
+const botaoZerar = document.getElementById("btnZerar") as HTMLButtonElement;
 
-caixa.addEventListener("input", (event) => {
-  const alvo = event.target as HTMLInputElement;
-  letras.textContent = String(alvo.value.length);
+botaoZerar.addEventListener("click", () => {
+  cliques = 0;
+  numero.textContent = String(cliques);
 });
 
-// 3. Formulário
+// 2. Seu nome
+const meuNome = document.getElementById("meuNome") as HTMLHeadingElement;
+const campoNome = document.getElementById("campoNome") as HTMLInputElement;
+const letras = document.getElementById("letras") as HTMLSpanElement;
+
+campoNome.addEventListener("input", (event) => {
+  const alvo = event.target as HTMLInputElement;
+  letras.textContent = String(alvo.value.length);
+
+  const nome = campoNome.value.trim();
+  if (nome === "") {
+    meuNome.textContent = "Digite seu nome";
+  } else {
+    meuNome.textContent = `Olá, ${nome}!`;
+  }
+});
+
+// 3. Calculadora de IMC
+const campoPeso = document.getElementById("campoPeso") as HTMLInputElement;
+const campoAltura = document.getElementById("campoAltura") as HTMLInputElement;
+const botaoCalcular = document.getElementById("btnCalcular") as HTMLButtonElement;
+const resultadoImc = document.getElementById("resultadoImc") as HTMLParagraphElement;
+
+function classificarImc(imc: number): string {
+  if (imc < 18.5) return "abaixo do peso";
+  if (imc < 25) return "peso normal";
+  if (imc < 30) return "sobrepeso";
+  return "obesidade";
+}
+
+botaoCalcular.addEventListener("click", () => {
+  const peso = Number(campoPeso.value);
+  const altura = Number(campoAltura.value);
+  if (peso <= 0 || altura <= 0) {
+    resultadoImc.textContent = "Digite peso e altura maiores que zero";
+    return;
+  }
+
+  const imc = peso / (altura * altura);
+  resultadoImc.textContent = `Seu IMC é ${imc.toFixed(1)} (${classificarImc(imc)})`;
+});
+
+// 4. Formulário
 const formNome = document.getElementById("formNome") as HTMLFormElement;
 const entradaNome = document.getElementById("entradaNome") as HTMLInputElement;
 const listaNomes = document.getElementById("listaNomes") as HTMLUListElement;
@@ -38,7 +81,7 @@ formNome.addEventListener("submit", (event) => {
   }
 });
 
-// 4. O botão que para de responder
+// 5. O botão que para de responder
 const painel = document.getElementById("painel") as HTMLDivElement;
 const botaoSalvar = document.getElementById("btnSalvar") as HTMLButtonElement;
 

@@ -7,21 +7,30 @@
 <body>
   <h1>Eventos</h1>
 
-  <h2>1. Clique</h2>
-  <button id="btnTeste">Clique</button>
+  <h2>1. Contador</h2>
+  <p id="numero">0</p>
+  <button id="btnMais">+ 1</button>
+  <button id="btnZerar">Zerar</button>
 
-  <h2>2. Contador de letras</h2>
-  <input id="caixa" placeholder="Digite algo">
+  <h2>2. Seu nome</h2>
+  <h3 id="meuNome">Digite seu nome</h3>
+  <input id="campoNome" placeholder="Seu nome">
   <p><span id="letras">0</span> letras</p>
 
-  <h2>3. Formulário</h2>
+  <h2>3. Calculadora de IMC</h2>
+  <input id="campoPeso" type="number" placeholder="Peso em kg">
+  <input id="campoAltura" type="number" step="0.01" placeholder="Altura em metros">
+  <button id="btnCalcular">Calcular</button>
+  <p id="resultadoImc"></p>
+
+  <h2>4. Formulário</h2>
   <form id="formNome">
     <input id="entradaNome" placeholder="Nome">
     <button>Enviar</button>
   </form>
   <ul id="listaNomes"></ul>
 
-  <h2>4. O botão que para de responder</h2>
+  <h2>5. O botão que para de responder</h2>
   <div id="painel">
     <button id="btnSalvar">Salvar</button>
   </div>
